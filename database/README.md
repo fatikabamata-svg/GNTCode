@@ -1,30 +1,49 @@
-# Base de données de l'application Solide
+# Base de données MySQL — Guinea National Tour
 
-Ce dossier fournit une première base relationnelle pour l'application **Solide** de Guinea National Tour. Le schéma est écrit en SQL compatible SQLite afin de démarrer rapidement en local, tout en restant simple à porter vers PostgreSQL ou MySQL.
+Ce dossier contient la configuration de base de données pour **Guinea National Tour**.
+Le modèle cible MySQL reprend les tables officielles du projet : catégories, régions,
+destinations, images, utilisateurs et réservations.
 
 ## Contenu
 
-- `migrations/001_initial_schema.sql` : tables principales, contraintes d'intégrité et index.
-- `seeds/001_demo_data.sql` : données de démonstration pour tester l'application.
-- `docs/data-model.md` : explication fonctionnelle du modèle de données.
+- `migrations/001_initial_schema.sql` : schéma MySQL complet avec clés étrangères et index.
+- `seeds/001_demo_data.sql` : données initiales pour les catégories, régions et destinations fournies dans l'extrait officiel.
+- `data/destinations.json` : fichier JSON source utilisé par l'importeur. Il contient l'extrait validé et peut être complété avec les 23 destinations.
+- `importers/import_destinations.py` : importeur Python idempotent pour charger ou mettre à jour les destinations depuis le JSON.
+- `docs/data-model.md` : documentation fonctionnelle du modèle relationnel.
 
-## Installation locale rapide
+## Installation rapide MySQL
 
 ```bash
-sqlite3 solide.db < database/migrations/001_initial_schema.sql
-sqlite3 solide.db < database/seeds/001_demo_data.sql
-sqlite3 solide.db "PRAGMA foreign_keys = ON; SELECT name FROM sqlite_master WHERE type='table';"
+mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS gnt CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+mysql -u root -p gnt < database/migrations/001_initial_schema.sql
+mysql -u root -p gnt < database/seeds/001_demo_data.sql
 ```
 
-## Tables principales
+## Import via Python
 
-- `users` : comptes clients, guides et administrateurs.
-- `destinations` : lieux touristiques proposés.
-- `tours` : circuits et expériences rattachés à une destination.
-- `bookings` : réservations clients.
-- `payments` : paiements liés aux réservations.
-- `reviews` : avis clients sur les circuits.
+Installez d'abord le connecteur MySQL si nécessaire :
 
-## Notes de production
+```bash
+python -m pip install mysql-connector-python
+```
 
-Avant une mise en production, remplacez les mots de passe de démonstration par des hash générés par l'application, configurez une vraie stratégie de migrations et vérifiez le moteur de base de données cible.
+Puis lancez l'import :
+
+```bash
+python database/importers/import_destinations.py \
+  --host 127.0.0.1 \
+  --port 3306 \
+  --database gnt \
+  --user root \
+  --file database/data/destinations.json
+```
+
+Le script demande le mot de passe si `--password` n'est pas fourni. Il utilise
+`ON DUPLICATE KEY UPDATE`, donc il peut être relancé après enrichissement du fichier JSON.
+
+## Notes sur les 23 destinations
+
+L'extrait technique actuellement disponible contient 4 destinations officielles. Le fichier
+`database/data/destinations.json` est donc livré avec ces 4 enregistrements et peut recevoir
+les 19 restantes dès que la liste complète est fournie, sans changement de schéma.
