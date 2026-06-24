@@ -71,63 +71,21 @@
         </p>
       </div>
 
-      <div class="destinations-grid" id="destinations-grid">
-        <article class="destination-card">
-          <div class="card-image island"></div>
-          <div class="card-content">
-            <div class="card-meta">
-              <span class="badge badge-featured">À la une</span>
-              <span class="destination-region">Boké</span>
-            </div>
-            <h3>Île de Room</h3>
-            <p class="destination-type">Île</p>
-            <p>Une escapade côtière idéale pour valoriser les richesses naturelles et culturelles de la région de Boké.</p>
-            <a href="#reservation" class="card-link">Voir détails</a>
-          </div>
-        </article>
-
-        <article class="destination-card">
-          <div class="card-image highlands"></div>
-          <div class="card-content">
-            <div class="card-meta">
-              <span class="badge badge-verified">Vérifié</span>
-              <span class="destination-region">Moyenne Guinée</span>
-            </div>
-            <h3>Fouta Djallon</h3>
-            <p class="destination-type">Plateau / région</p>
-            <p>Des reliefs majestueux, des cascades et une atmosphère fraîche au cœur d'une région emblématique.</p>
-            <a href="#reservation" class="card-link">Voir détails</a>
-          </div>
-        </article>
-
-        <article class="destination-card">
-          <div class="card-image city"></div>
-          <div class="card-content">
-            <div class="card-meta">
-              <span class="badge badge-verified">Vérifié</span>
-              <span class="destination-region">Conakry</span>
-            </div>
-            <h3>Ville de Conakry</h3>
-            <p class="destination-type">Ville</p>
-            <p>La capitale guinéenne réunit patrimoine, culture urbaine, bord de mer et points d'intérêt incontournables.</p>
-            <a href="#reservation" class="card-link">Voir détails</a>
-          </div>
-        </article>
-
-        <article class="destination-card">
-          <div class="card-image mountain"></div>
-          <div class="card-content">
-            <div class="card-meta">
-              <span class="badge badge-verified">Vérifié</span>
-              <span class="destination-region">Guinée forestière</span>
-            </div>
-            <h3>Mont Nimba</h3>
-            <p class="destination-type">Réserve / montagne</p>
-            <p>Un site naturel remarquable associé à une biodiversité rare et aux paysages de la Guinée forestière.</p>
-            <a href="#reservation" class="card-link">Voir détails</a>
-          </div>
-        </article>
+      <div class="destinations-toolbar" aria-label="Filtres des destinations">
+        <label>
+          Région
+          <select id="region-filter" name="region">
+            <option value="">Toutes les régions</option>
+          </select>
+        </label>
+        <label>
+          Recherche
+          <input id="destination-search" type="search" placeholder="Conakry, Fouta, île..." autocomplete="off" />
+        </label>
       </div>
+
+      <p class="status-message" id="destinations-status" role="status">Chargement des destinations...</p>
+      <div class="destinations-grid" id="destinations-grid" aria-live="polite"></div>
     </section>
 
     <section class="section experiences-section" id="experiences" aria-labelledby="experiences-title">
@@ -183,13 +141,58 @@
       </div>
     </section>
 
-    <section class="cta-section" id="reservation" aria-labelledby="reservation-title">
-      <div>
-        <p class="eyebrow">Prochaine étape</p>
+    <section class="reservation-section" id="reservation" aria-labelledby="reservation-title">
+      <div class="reservation-copy">
+        <p class="eyebrow">Réservation</p>
         <h2 id="reservation-title">Préparez votre prochaine aventure en Guinée</h2>
-        <p>La réservation sera bientôt connectée à l'API et à la base de données pour gérer les demandes des voyageurs.</p>
+        <p>Choisissez une destination, indiquez vos informations de contact et envoyez une demande directement vers l'API <code>POST /api/v1/reservations</code>.</p>
       </div>
-      <a class="button button-primary" href="mailto:contact@guineanationaltour.com">Contacter l'équipe</a>
+      <form class="reservation-form" id="reservation-form">
+        <div class="form-row">
+          <label for="reservation-destination">Destination</label>
+          <select id="reservation-destination" name="destinationId">
+            <option value="">Choisir une destination</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="guest-full-name">Nom complet</label>
+          <input id="guest-full-name" name="guestFullName" type="text" placeholder="Aminata Diallo" required />
+        </div>
+        <div class="form-grid">
+          <div class="form-row">
+            <label for="guest-email">Email</label>
+            <input id="guest-email" name="guestEmail" type="email" placeholder="aminata@example.com" />
+          </div>
+          <div class="form-row">
+            <label for="guest-phone">Téléphone</label>
+            <input id="guest-phone" name="guestPhone" type="tel" placeholder="+224620000000" />
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-row">
+            <label for="booking-type">Type de demande</label>
+            <select id="booking-type" name="bookingType" required>
+              <option value="visite-guidée">Visite guidée</option>
+              <option value="circuit-touristique">Circuit touristique</option>
+              <option value="information">Demande d'information</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label for="travelers-count">Voyageurs</label>
+            <input id="travelers-count" name="travelersCount" type="number" min="1" value="1" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <label for="travel-date">Date de voyage</label>
+          <input id="travel-date" name="travelDate" type="date" required />
+        </div>
+        <div class="form-row">
+          <label for="reservation-notes">Notes</label>
+          <textarea id="reservation-notes" name="notes" rows="4" placeholder="Précisez vos préférences, votre horaire ou toute question utile."></textarea>
+        </div>
+        <button class="button button-primary" type="submit">Envoyer la demande</button>
+        <p class="status-message" id="reservation-status" role="status"></p>
+      </form>
     </section>
   </main>
 
@@ -201,5 +204,6 @@
       <a href="#reservation">Réservation</a>
     </div>
   </footer>
+  <script src="app.js" defer></script>
 </body>
 </html>
