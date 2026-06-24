@@ -1,14 +1,13 @@
-```json
-   {
-     "name": "gnt-code",
-     "version": "1.0.0",
-     "description": "Guinea National Tour API",
-     "main": "app.js",
-     "scripts": {
-       "start": "node app.js"
-     },
-     "dependencies": {
-       "express": "^4.18.2",
-       "sqlite3": "^5.1.6"
-     }
-   }
+{
+  "name": "gnt-code",
+  "version": "1.0.0",
+  "description": "Guinea National Tour API",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "sqlite3": "^5.1.6"
+  }
+}
