@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Guinea National Tour est une vitrine moderne pour découvrir les destinations phares de la Guinée et préparer ses réservations touristiques." />
+  <title>Guinea National Tour | Découvrez la Guinée autrement</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar" aria-label="Navigation principale">
+      <a class="brand" href="#top" aria-label="Guinea National Tour - Accueil">
+        <span class="brand-mark">GNT</span>
+        <span class="brand-text">Guinea National Tour</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#destinations">Destinations</a></li>
+        <li><a href="#experiences">Expériences</a></li>
+        <li><a href="#about">À propos</a></li>
+        <li><a href="#reservation">Réservation</a></li>
+      </ul>
+      <a class="nav-cta" href="#destinations">Explorer</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-content">
+        <p class="eyebrow">Tourisme national · Guinée</p>
+        <h1 id="hero-title">Découvrez la Guinée autrement</h1>
+        <p class="hero-description">
+          Îles, montagnes, villes historiques et paysages verdoyants : Guinea National Tour met en lumière les destinations phares du pays et prépare une expérience connectée de réservation touristique.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#destinations">Voir les destinations</a>
+          <a class="button button-secondary" href="#reservation">Créer une demande</a>
+        </div>
+        <dl class="hero-stats" aria-label="Chiffres clés du projet">
+          <div>
+            <dt>23</dt>
+            <dd>destinations phares</dd>
+          </div>
+          <div>
+            <dt>4</dt>
+            <dd>régions mises en avant</dd>
+          </div>
+          <div>
+            <dt>API</dt>
+            <dd>prête pour MySQL</dd>
+          </div>
+        </dl>
+      </div>
+      <div class="hero-card" aria-label="Aperçu destination à la une">
+        <span class="badge badge-featured">À la une</span>
+        <h2>Île de Room</h2>
+        <p>Boké · Île</p>
+        <div class="map-pin">📍 Boké, Guinée</div>
+      </div>
+    </section>
+
+    <section class="section destinations-section" id="destinations" aria-labelledby="destinations-title">
+      <div class="section-heading">
+        <p class="eyebrow">Explorer</p>
+        <h2 id="destinations-title">Destinations prêtes à être connectées</h2>
+        <p>
+          Cette vitrine statique est structurée pour recevoir les données de l'API <code>GET /api/v1/destinations</code> et afficher les 23 destinations du projet.
+        </p>
+      </div>
+
+      <div class="destinations-grid" id="destinations-grid">
+        <article class="destination-card">
+          <div class="card-image island"></div>
+          <div class="card-content">
+            <div class="card-meta">
+              <span class="badge badge-featured">À la une</span>
+              <span class="destination-region">Boké</span>
+            </div>
+            <h3>Île de Room</h3>
+            <p class="destination-type">Île</p>
+            <p>Une escapade côtière idéale pour valoriser les richesses naturelles et culturelles de la région de Boké.</p>
+            <a href="#reservation" class="card-link">Voir détails</a>
+          </div>
+        </article>
+
+        <article class="destination-card">
+          <div class="card-image highlands"></div>
+          <div class="card-content">
+            <div class="card-meta">
+              <span class="badge badge-verified">Vérifié</span>
+              <span class="destination-region">Moyenne Guinée</span>
+            </div>
+            <h3>Fouta Djallon</h3>
+            <p class="destination-type">Plateau / région</p>
+            <p>Des reliefs majestueux, des cascades et une atmosphère fraîche au cœur d'une région emblématique.</p>
+            <a href="#reservation" class="card-link">Voir détails</a>
+          </div>
+        </article>
+
+        <article class="destination-card">
+          <div class="card-image city"></div>
+          <div class="card-content">
+            <div class="card-meta">
+              <span class="badge badge-verified">Vérifié</span>
+              <span class="destination-region">Conakry</span>
+            </div>
+            <h3>Ville de Conakry</h3>
+            <p class="destination-type">Ville</p>
+            <p>La capitale guinéenne réunit patrimoine, culture urbaine, bord de mer et points d'intérêt incontournables.</p>
+            <a href="#reservation" class="card-link">Voir détails</a>
+          </div>
+        </article>
+
+        <article class="destination-card">
+          <div class="card-image mountain"></div>
+          <div class="card-content">
+            <div class="card-meta">
+              <span class="badge badge-verified">Vérifié</span>
+              <span class="destination-region">Guinée forestière</span>
+            </div>
+            <h3>Mont Nimba</h3>
+            <p class="destination-type">Réserve / montagne</p>
+            <p>Un site naturel remarquable associé à une biodiversité rare et aux paysages de la Guinée forestière.</p>
+            <a href="#reservation" class="card-link">Voir détails</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section experiences-section" id="experiences" aria-labelledby="experiences-title">
+      <div class="section-heading">
+        <p class="eyebrow">Expériences</p>
+        <h2 id="experiences-title">Une plateforme pensée pour le web et le mobile</h2>
+      </div>
+      <div class="features-grid">
+        <article class="feature-card">
+          <span class="feature-icon">🌍</span>
+          <h3>Explorer par région</h3>
+          <p>Filtrez les destinations par région, préfecture, type de lieu et statut de vérification.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-icon">✅</span>
+          <h3>Sources vérifiées</h3>
+          <p>Centralisez les liens, crédits photo et statuts de validation avant publication.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-icon">📱</span>
+          <h3>Mobile-first</h3>
+          <p>Offrez une expérience fluide sur smartphone, tablette et ordinateur.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-icon">🧳</span>
+          <h3>Réservation future</h3>
+          <p>Préparez la création de demandes via <code>POST /api/v1/reservations</code>.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section about-section" id="about" aria-labelledby="about-title">
+      <div class="about-panel">
+        <p class="eyebrow">Notre mission</p>
+        <h2 id="about-title">Valoriser les trésors touristiques de la Guinée</h2>
+        <p>
+          Guinea National Tour est conçu comme une passerelle entre les voyageurs, les destinations locales et une base de données MySQL fiable. Cette première vitrine pose les fondations visuelles du futur site web et de l'application mobile.
+        </p>
+      </div>
+      <div class="about-list" aria-label="Objectifs de la plateforme">
+        <div>
+          <strong>Base MySQL</strong>
+          <span>Catégories, régions, destinations, images, utilisateurs et réservations.</span>
+        </div>
+        <div>
+          <strong>API REST</strong>
+          <span>Routes prévues pour lister, détailler et réserver les destinations.</span>
+        </div>
+        <div>
+          <strong>Contenu évolutif</strong>
+          <span>23 destinations au lancement, avec possibilité d'ajouter de nouveaux sites.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section" id="reservation" aria-labelledby="reservation-title">
+      <div>
+        <p class="eyebrow">Prochaine étape</p>
+        <h2 id="reservation-title">Préparez votre prochaine aventure en Guinée</h2>
+        <p>La réservation sera bientôt connectée à l'API et à la base de données pour gérer les demandes des voyageurs.</p>
+      </div>
+      <a class="button button-primary" href="mailto:contact@guineanationaltour.com">Contacter l'équipe</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Guinea National Tour. Tous droits réservés.</p>
+    <div class="footer-links">
+      <a href="#destinations">Destinations</a>
+      <a href="#about">À propos</a>
+      <a href="#reservation">Réservation</a>
+    </div>
+  </footer>
+</body>
+</html>

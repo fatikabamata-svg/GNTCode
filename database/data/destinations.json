@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Île de Room",
+    "slug": "ile-de-room",
+    "type": "île",
+    "region": "Boké",
+    "category": "Îles et plages",
+    "prefecture": "Boké",
+    "locality": "Boké",
+    "sourceUrl": "https://www.facebook.com/61573989154315/posts/122168508350799638/?app=fbl",
+    "status": "pending",
+    "featured": true
+  },
+  {
+    "name": "Fouta Djallon",
+    "slug": "fouta-djallon",
+    "type": "plateau / région",
+    "region": "Moyenne Guinée",
+    "category": "Nature et montagnes",
+    "prefecture": "Labé",
+    "locality": "Fouta Djallon",
+    "sourceUrl": "https://www.facebook.com/61573989154315/posts/122154774242799638/?app=fbl",
+    "status": "verified",
+    "featured": true
+  },
+  {
+    "name": "Ville de Conakry",
+    "slug": "ville-de-conakry",
+    "type": "ville",
+    "region": "Conakry",
+    "category": "Villes et patrimoine",
+    "prefecture": "Conakry",
+    "locality": "Conakry",
+    "sourceUrl": "https://www.facebook.com/61573989154315/posts/122110608842799638/?app=fbl",
+    "status": "verified",
+    "featured": true
+  },
+  {
+    "name": "Mont Nimba et crapauds géants",
+    "slug": "mont-nimba-et-crapauds-geants",
+    "type": "réserve / montagne",
+    "region": "Guinée forestière",
+    "category": "Réserves et biodiversité",
+    "prefecture": "N’Zérékoré",
+    "locality": "Mont Nimba",
+    "sourceUrl": "https://www.facebook.com/61573989154315/posts/122109586478799638/?app=fbl",
+    "status": "verified",
+    "featured": true
+  }
+]
