@@ -1,30 +1,89 @@
-# Modèle de données Solide
+# Modèle de données — Guinea National Tour
 
-## Vue d'ensemble
+Le modèle relationnel est conçu pour alimenter le site web, l'application mobile et les routes API prévues :
 
-La base de données couvre le parcours principal d'une application de tourisme : publication de destinations, création de circuits, réservation par un client, paiement et avis après l'expérience.
+- `GET /api/v1/destinations`
+- `GET /api/v1/destinations/{id}`
+- `POST /api/v1/reservations`
 
-## Relations
+## Tables
 
-- Un `user` peut être client, guide ou administrateur grâce au champ `role`.
-- Une `destination` possède plusieurs `tours`.
-- Un `tour` appartient à une `destination` et peut être animé par un guide (`users.role = 'guide'`).
-- Une `booking` relie un client à un circuit et conserve le nombre de participants, le statut et le montant total.
-- Un `payment` est rattaché à une réservation.
-- Une `review` est unique par couple circuit/client pour éviter plusieurs avis du même client sur le même circuit.
+### `categories`
 
-## Statuts métier
+Regroupe les destinations par familles touristiques : îles et plages, nature et montagnes, villes et patrimoine, réserves et biodiversité.
 
-| Table | Champ | Valeurs |
-| --- | --- | --- |
-| `users` | `role` | `customer`, `guide`, `admin` |
-| `tours` | `status` | `draft`, `published`, `archived` |
-| `bookings` | `status` | `pending`, `confirmed`, `cancelled`, `completed` |
-| `payments` | `status` | `initiated`, `paid`, `failed`, `refunded` |
+Champs clés :
 
-## Évolutions possibles
+- `name` : libellé affiché.
+- `slug` : identifiant stable pour l'API et les URLs.
+- `description` : texte éditorial optionnel.
 
-- Ajouter une table `tour_images` pour gérer une galerie de photos.
-- Ajouter une table `availability_slots` si les dates de départ deviennent récurrentes.
-- Ajouter une table `audit_logs` pour tracer les actions administratives.
-- Migrer vers PostgreSQL si l'application nécessite une concurrence élevée, des vues matérialisées ou des recherches avancées.
+### `regions`
+
+Référence les grandes zones géographiques utilisées pour filtrer les destinations.
+
+Champs clés :
+
+- `name` : nom de la région ou zone touristique.
+- `description` : résumé éditorial.
+
+### `destinations`
+
+Table centrale du projet. Elle contient les fiches touristiques affichées sur le web et le mobile.
+
+Champs clés :
+
+- `name`, `slug` : identité publique de la destination.
+- `short_description`, `long_description` : contenus de présentation.
+- `destination_type` : type fourni par les données sources, par exemple `île`, `ville` ou `réserve / montagne`.
+- `region_id`, `category_id` : rattachements relationnels.
+- `prefecture`, `locality` : localisation administrative et locale.
+- `latitude`, `longitude`, `google_maps_url` : données cartographiques optionnelles.
+- `best_season`, `access_level`, `entry_fee` : informations pratiques.
+- `source_url`, `image_url`, `image_credit` : traçabilité et médias.
+- `verification_status` : statut éditorial, par exemple `pending` ou `verified`.
+- `is_featured`, `is_active` : contrôle d'affichage.
+
+### `destination_images`
+
+Stocke une ou plusieurs images par destination.
+
+Champs clés :
+
+- `destination_id` : destination parente.
+- `image_url` : URL de l'image.
+- `caption`, `credit`, `source_url` : métadonnées éditoriales.
+- `is_primary` : image principale pour la carte ou la fiche.
+
+### `users`
+
+Contient les futurs comptes utilisateurs ou administrateurs.
+
+Champs clés :
+
+- `full_name`, `email`, `phone` : identité et contact.
+- `password_hash` : hash applicatif, jamais un mot de passe en clair.
+- `role` : rôle fonctionnel, par défaut `user`.
+
+### `reservations`
+
+Contient les demandes de réservation créées depuis l'API.
+
+Champs clés :
+
+- `user_id` : utilisateur rattaché, facultatif pour permettre des demandes invitées.
+- `destination_id` : destination concernée.
+- `booking_type` : type de demande, par exemple visite, circuit ou information.
+- `booking_date`, `travel_date` : dates de demande et de voyage.
+- `travelers_count` : nombre de voyageurs.
+- `status` : état de traitement, par défaut `pending`.
+- `notes` : message libre.
+
+## Stratégie d'import
+
+Deux chemins sont disponibles :
+
+1. Import SQL direct avec `database/seeds/001_demo_data.sql`.
+2. Import dynamique avec `database/importers/import_destinations.py` et `database/data/destinations.json`.
+
+L'importeur Python est recommandé pour la liste complète des 23 destinations, car il permet de relancer la synchronisation après correction ou enrichissement du JSON.
